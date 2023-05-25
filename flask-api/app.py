@@ -11,7 +11,7 @@ from sqlalchemy import join
 from configdb import encoded_username, encoded_password
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": "https://sandbox1.rssda.su"}})
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{encoded_username}:{encoded_password}@185.84.108.3/b187324_stamps'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://<u187324_GN>:<3281#Db-77>@<185.84.108.3>/<b187324_stamps>'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1111@localhost/stamp_db'
