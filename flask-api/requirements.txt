@@ -1,0 +1,18 @@
+flask
+Flask-SQLAlchemy
+psycopg2-binary
+flask_marshmallow
+marshmallow-sqlalchemy
+Flask-Cors
+flask_sqlalchemy
+urllib3
+pymysql
+sqlalchemy
+
+# sqlite3
+# aiohttp==3.8.1
+# sqlparse
+
+# flask==2.2.2
+# Flask-SQLAlchemy==2.5.1
+# psycopg2-binary==2.9.4
