@@ -11,7 +11,7 @@ from sqlalchemy import join
 # pymysql.install_as_MySQLdb()
 from configdb import encoded_username, encoded_password
 
-app = Flask(__name__, static_folder='build')
+app = Flask(__name__, static_folder='static')
 CORS(app, resources={r"/*": {"origins": "https://sandbox1.rssda.su"}})
 # CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{encoded_username}:{encoded_password}@185.84.108.3/b187324_stamps'
@@ -432,21 +432,21 @@ def get_model(model_id):
     model = Model_3d.query.get(model_id)
     return model_3d_schema.jsonify(model)
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def serve(path):
-    if path != "" and os.path.exists(app.static_folder + '/' + path):
-        return send_from_directory(app.static_folder, path)
-    else:
-        return send_from_directory(app.static_folder, 'index.html')
+# @app.route('/', defaults={'path': ''})
+# @app.route('/<path:path>')
+# def serve(path):
+#     if path != "" and os.path.exists(app.static_folder + '/' + path):
+#         return send_from_directory(app.static_folder, path)
+#     else:
+#         return send_from_directory(app.static_folder, 'index.html')
 
-# @app.route('/')
-# def index():
-#     return send_from_directory(app.static_folder, 'index.html')
+@app.route('/')
+def index():
+    return send_from_directory(app.static_folder, 'index.html')
 
-# @app.route('/static/<path:path>')
-# def serve_static(path):
-#     return send_from_directory(app.static_folder, path)
+@app.route('/static/<path:path>')
+def serve_static(path):
+    return send_from_directory(app.static_folder, path)
 
 
 if __name__== "__main__":
