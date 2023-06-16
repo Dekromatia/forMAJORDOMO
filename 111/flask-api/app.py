@@ -1,5 +1,4 @@
-import os
-from flask import Flask, jsonify, request, url_for, send_from_directory
+from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
@@ -11,9 +10,8 @@ from sqlalchemy import join
 # pymysql.install_as_MySQLdb()
 from configdb import encoded_username, encoded_password
 
-app = Flask(__name__, static_folder='build')
+app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "https://sandbox1.rssda.su"}})
-# CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{encoded_username}:{encoded_password}@185.84.108.3/b187324_stamps'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://<u187324_GN>:<3281#Db-77>@<185.84.108.3>/<b187324_stamps>'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1111@localhost/stamp_db'
@@ -21,7 +19,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/amph_stamp_db'в докере
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
-
 class Site(db.Model):
     __tablename__ = 'site'
     id = db.Column(db.SmallInteger, primary_key=True)
@@ -431,23 +428,6 @@ def get_models():
 def get_model(model_id):
     model = Model_3d.query.get(model_id)
     return model_3d_schema.jsonify(model)
-
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def serve(path):
-    if path != "" and os.path.exists(app.static_folder + '/' + path):
-        return send_from_directory(app.static_folder, path)
-    else:
-        return send_from_directory(app.static_folder, 'index.html')
-
-# @app.route('/')
-# def index():
-#     return send_from_directory(app.static_folder, 'index.html')
-
-# @app.route('/static/<path:path>')
-# def serve_static(path):
-#     return send_from_directory(app.static_folder, path)
-
 
 if __name__== "__main__":
     app.run(debug=True, host="0.0.0.0", port=8000)

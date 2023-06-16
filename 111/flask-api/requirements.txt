@@ -8,8 +8,6 @@ flask_sqlalchemy
 urllib3
 pymysql
 sqlalchemy
-uWSGI
-wheel
 
 # sqlite3
 # aiohttp==3.8.1
